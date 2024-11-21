@@ -1,27 +1,24 @@
 # NervesBbbEmmcFlasher
 
-**TODO: Add description**
+This Nerves firmware is used to flash BeagleBone Black eMMC. It includes a Nerves `.fw` file that is an "empty" Elixir Application just to get something on the eMMC. Not necessary, but if you would like to change the intial firmware just copy your projects `.fw` file to `./rootfs_overlays/nerves/emmc_firmware.fw`.
 
 ## Targets
 
-Nerves applications produce images for hardware targets based on the
-`MIX_TARGET` environment variable. If `MIX_TARGET` is unset, `mix` builds an
-image that runs on the host (e.g., your laptop). This is useful for executing
-logic tests, running utilities, and debugging. Other targets are represented by
-a short name like `rpi3` that maps to a Nerves system image for that platform.
-All of this logic is in the generated `mix.exs` and may be customized. For more
-information about targets see:
+This project can only target the Beaglebone so you should use `MIX_TARGET=bbb` for all nerves commands.
 
-https://hexdocs.pm/nerves/supported-targets.html
-
-## Getting Started
+## How to Flash the eMMC
 
 To start your Nerves app:
-  * `export MIX_TARGET=my_target` or prefix every command with
-    `MIX_TARGET=my_target`. For example, `MIX_TARGET=rpi3`
+  * `export MIX_TARGET=bbb`
   * Install dependencies with `mix deps.get`
   * Create firmware with `mix firmware`
-  * Burn to an SD card with `mix burn`
+  * Burn to an uSD card with `mix burn`
+  * Insert the uSD card in BeagleBone
+  * Power the BeagleBone while holding down the S2 button.
+  * Wait for flashing to complete. Behavior: The leds will have "normal" flashing patterns for a few seconds before going into a sweeping pattern. After the sweeping pattern completes all LEDs will go solid and the Beaglebone will power off.
+  * Remove uSD card from BeagleBone
+  * Power on the BeagleBone and enjoy!
+  * You can now update with OTA methods (eg `mix upload`) with firmware using the [Nerves BBB eMMC System](https://github.com/CaptChrisD/nerves_system_bbb_emmc)
 
 ## Learn more
 
